@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TickTaskDoe.Models.ToDo>
+
+<div id="progressToDo">
+    <br/>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar"
+            style="width:@(Html.AttributeEncode(ViewBag.percentComplete))%">
+        </div>
+    </div>
+    <p>@(ViewBag.percentComplete)% Complete</p>
+</div>
+
+<table class="table">
+    <tr>
+        <!--<th>
+            @Html.DisplayNameFor(model => model.Desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Done)
+        </th>
+        <th>Task Description</th>
+        <th>Is Done?</th-->
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!item.Done)
+                {
+                    @Html.DisplayFor(modelItem => item.Desc)
+                }
+                else
+                {
+                    <div class="strikeThrough">@Html.DisplayFor(modelItem => item.Desc)</div>
+                }
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.Done,new { id=item.Id,@class="ActiveCheck"})
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script src="~/CustomUnits/DoneEventListener.js"></script>

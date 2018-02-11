@@ -1,0 +1,29 @@
+﻿@model TickTaskDoe.Models.ToDo
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="tableDiv"></div>
+<div id="toDoCreateForm">
+    @using (Ajax.BeginForm("AjaxCreate","ToDoes",new AjaxOptions {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "tableDiv"
+    }))
+    {
+    <div class="form-group">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    } 
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/CustomUnits/ToDoTable.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
